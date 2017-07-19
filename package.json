@@ -1,0 +1,36 @@
+{
+  "name": "lambda-pandoc-native",
+  "version": "1.0.0",
+  "description": "Pandoc binary for running on Amazon AWS Lambda",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -d -p src/tsconfig.json",
+    "watch": "tsc -w -d -p src/tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bedatse/lambda-pandoc-native.git"
+  },
+  "keywords": [
+    "serverless",
+    "lambda",
+    "aws",
+    "pandoc",
+    "docx",
+    "pdf"
+  ],
+  "author": "Beda Tse <beda@ananse.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bedatse/lambda-pandoc-native/issues"
+  },
+  "homepage": "https://github.com/bedatse/lambda-pandoc-native#readme",
+  "dependencies": {
+    "lambda-native-binary-helper": "https://github.com/bedatse/lambda-native-bin-helper.git"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.14",
+    "typescript": "^2.4.1"
+  }
+}
