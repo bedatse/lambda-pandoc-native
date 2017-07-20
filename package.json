@@ -1,6 +1,6 @@
 {
   "name": "lambda-pandoc-native",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Pandoc binary for running on Amazon AWS Lambda",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
