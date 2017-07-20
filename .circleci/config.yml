@@ -1,0 +1,80 @@
+version: 2
+
+defaults: &defaults
+  working_directory: /tmp/lambda-native-bin-helper
+  docker:
+    - image: circleci/node:6.10.2
+      environment:
+        YARN_CACHE_FOLDER: /tmp/yarn-cache
+
+jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: node-module-cache-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          key: yarn-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: yarn-install
+          command: yarn
+      - run:
+          name: unit-test
+          command: yarn test
+      - run:
+          name: test-build
+          command: yarn build
+      - save_cache:
+          key: node-module-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - save_cache:
+          key: yarn-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - /tmp/yarn-cache
+
+  publish_to_npm:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: node-module-cache-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          key: yarn-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: yarn-install
+          command: yarn
+      - run:
+          name: unit-test
+          command: yarn test
+      - run:
+          name: build
+          command: yarn build
+      - run:
+          name: set-npmrc
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run:
+          name: npm publish
+          command: npm publish
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
+      - approve_to_publish:
+          type: approval
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - publish
+      - publish_to_npm:
+          requires:
+            - approve_to_publish
+          filters:
+            branches:
+              only:
+                - publish

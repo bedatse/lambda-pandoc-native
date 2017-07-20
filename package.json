@@ -1,12 +1,13 @@
 {
   "name": "lambda-pandoc-native",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Pandoc binary for running on Amazon AWS Lambda",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -d -p src/tsconfig.json",
-    "watch": "tsc -w -d -p src/tsconfig.json"
+    "test": "jest --coverage --config jest.json",
+    "build": "tsc -d -p tsconfig.build.json",
+    "watch": "tsc -w -d -p tsconfig.build.json"
   },
   "repository": {
     "type": "git",
@@ -27,10 +28,14 @@
   },
   "homepage": "https://github.com/bedatse/lambda-pandoc-native#readme",
   "dependencies": {
-    "lambda-native-binary-helper": "https://github.com/bedatse/lambda-native-bin-helper.git"
+    "lambda-native-binary-helper": "^1.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^20.0.4",
     "@types/node": "^8.0.14",
+    "jest": "^20.0.4",
+    "ts-jest": "^20.0.7",
+    "tslint": "^5.5.0",
     "typescript": "^2.4.1"
   }
 }
