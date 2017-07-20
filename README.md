@@ -5,6 +5,7 @@ Amazon Linux AMI version: amzn-ami-hvm-2016.03.3.x86_64-gp2
 Kernel version: 4.4.11-23.53.amzn1.x86_64
 
 # Usage
+Pandoc.process()
 
 # Developing
 For building pandoc binary for Amazon AWS Lambda using Amazon Linux AMI.
